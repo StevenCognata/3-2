@@ -1,88 +1,61 @@
+import java.util.UUID;
+
 public class Contact {
-	static String contactId;
-	static String firstName;
-	static String lastName;
-	static String phoneNumber;
-	static String address;
+	private String contactId;
+	private String firstName;
+	private String lastName;
+	private String phoneNumber;
+	private String address;
 	
-	
-	
-	public Contact(String contactId, String firstName) {
-		if (contactId == null || contactId.length()>10) {
-			throw new IllegalArgumentException("Invalid");
-			
-		}
-		
-		if (firstName == null || firstName.length()>10) {
-			throw new IllegalArgumentException("Invalid");
-		}
-		
-		if (lastName == null || lastName.length()>10) {
-			throw new IllegalArgumentException("Invalid");
-		}
-		
-		if (phoneNumber == null || phoneNumber.length()>10) {
-			throw new IllegalArgumentException("Invalid");
-		}
-		
-		if (address == null || address.length()>10) {
-			throw new IllegalArgumentException("Invalid");
-		}
-		
-		
-		this.address = address;
-		this.contactId = contactId;
+	public Contact(String firstName, String lastName, String phoneNumber, String address) {
+		this.contactId = UUID.randomUUID().toString().substring(0, 10);
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.phoneNumber = phoneNumber;
-		
-		
-		
-
-		
-		
+		this.address = address;
 	}
 
-
-
-	public Contact(String newUniqueId, String firstname2, String lastname2, String phonenumber2, String address2) {
-		// TODO Auto-generated constructor stub
-	}
-
-
-
-	public void updateFirstName(String firstName2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	public void updateLastName(String lastName2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	public void updatePhoneNumber(String phoneNumber2) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-
-	public void updateAddress(String address2) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
 	
 
+	public String GetContactId(){
+		return contactId;
+	}
+	
+	public void SetContactId(String contactId) {
+		this.contactId = contactId;
+	}
 
+	public String GetFirstName(){
+		return firstName;
+	}
 
+	public void SetFirstName(String firstName){
+		this.firstName = firstName;
+	}
 
+	public String GetLastName(){
+		return lastName;
+	}
+
+	public void SetLastName(String lastname){
+		this.lastName = lastname;
+	}
+
+	public String GetPhoneNumber(){
+		return phoneNumber;
+	}
+
+	public void SetPhoneNumber(String phoneNumber){
+		this.phoneNumber = phoneNumber;
+	}
+
+	public String GetAddress(){
+		return address;
+	}
+
+	public void SetAddress(String address){
+		this.address = address;
+	}
 
 
 }

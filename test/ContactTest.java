@@ -7,19 +7,19 @@ class ContactTest {
 
 	@Test
 	void testContact() {
-		Contact contact = new Contact("322", "Steven", "Cognata", "9085553456", "Hogrefe");
-		assertTrue(Contact.firstName.equals("Steven"));
-		assertTrue(Contact.contactId.equals("322"));
-		assertTrue(Contact.lastName.equals("Cognata"));
-		assertTrue(Contact.phoneNumber.equals("9085553456"));
-		assertTrue(Contact.address.equals("Hogrefe"));
+		Contact contact = new Contact("322", "Steven", "Cognata", "9085553456");
+		assertTrue(contact.GetFirstName().equals("Steven"));
+		assertTrue(contact.GetContactId().equals("322"));
+		assertTrue(contact.GetLastName().equals("Cognata"));
+		assertTrue(contact.GetPhoneNumber().equals("9085553456"));
+		assertTrue(contact.GetAddress().equals("Hogrefe"));
 		
 	}
 	
 	@Test
 	void testContactName() {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new Contact("322", "Steven", "Cognata", "9085553456", "Hogrefe");
+			new Contact("322", "Steven", "Cognata", "9085553456");
 		});
 	}
 	
