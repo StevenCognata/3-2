@@ -1,21 +1,23 @@
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Test;
+import javax.naming.directory.InvalidAttributesException;
 
-class ContactServiceTest {
-	// private String firstName = null;
-	// private String lastName = null;
-	// private String phoneNumber = null;
-	// private String address = null;
+import static org.junit.Assert.*;
+
+public class ContactServiceTest {
+	 private String firstName = null;
+	 private String lastName = null;
+	 private String phoneNumber = null;
+	 private String address = null;
 	
-	// @BeforeEach
-	// private void setup() {
-	// 	String this.firstName = "Steven";
-	// 	String lastName = "Cognata";
-	// 	String phoneNumber = "9085551270"
-	// 	String address = "Sesame Street"
-	// 	// TODO: Fill in the fields
-	// }
+	 @Before
+	 public void setUp() {
+	 	firstName = "Steven";
+	 	lastName = "Cognata";
+	 	phoneNumber = "9085551270";
+	 	address = "StreetName";
+	 }
 
 	/* Feature: Happy Path
 	 * Given: All valid inputs for a new contact
@@ -23,22 +25,31 @@ class ContactServiceTest {
 	 * Then: Contact is added to contact list
 	 */
 	@Test
-	void testCreatingNewContactHappyPath() {
+	public void testCreatingNewContactHappyPath() throws InvalidAttributesException {
 		ContactService service = new ContactService();
 
-		Contact expectedContact = new Contact(firstName, lastName, phoneNumber, address)
+		Contact expectedContact = new Contact(firstName, lastName, phoneNumber, address);
 
-		service.newContact(expectedContact.GetFirstName(), expectedContact.GetLastName(), expectedContact.GetPhoneNumber(), expectedContact.GetAddress());
+		service.addContact(expectedContact.GetFirstName(), expectedContact.GetLastName(), expectedContact.GetPhoneNumber(), expectedContact.GetAddress());
 
-		// assert contact service list length is equal to 1
+		// Contact service list is not null
+		assertNotNull(service.GetContactList());
+
+		// Contact service list length is equal to 1
+		assertEquals(1, service.GetContactList().size());
 
 		// assert that the contact in the list has the correct values.
-		
+		assertEquals(service.GetContactList().get(0), expectedContact);
 	}
 
 	@Test
-	void newContactTest(){
-		
+	public void deleteContact(){
+		ContactService service = new ContactService();
+		service.newContact();
+		assertThrows(Exception.class, ()->service.deleteContact(GetContactId()));
+		assertAll(()->service.deleteContact(service.getContactList().get(0).getContactID()));
+
 	}
+
 
 }

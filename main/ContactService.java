@@ -1,3 +1,4 @@
+import javax.naming.directory.InvalidAttributesException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -6,53 +7,36 @@ public class ContactService {
 	
 	private List<Contact> contactList = new ArrayList<>();
 
-	public void newContact(String firstname, String lastname, String phonenumber, String address) {
-
-		if (!IsValidateContactInfo(firstname, lastname, phonenumber, address)) {
-			throw new IllegalArgumentException("invalid");
-		}
-		
+	public void addContact(String firstname, String lastname, String phonenumber, String address) throws InvalidAttributesException {
 		Contact contact = new Contact(firstname, lastname, phonenumber, address);
 		contactList.add(contact);
 	}
 
-	private boolean IsValidateContactInfo(String firstName, String lastName, String phoneNumber, String address) {
-		
-		if (firstName == null || firstName.length()>10) {
-			return false;
+	public void deleteContact(String uniqueId) {
+		for (Contact contact : this.contactList) {
+			if (uniqueId.equals(contact.GetContactId())) {
+				contactList.remove(contact);
+			}
 		}
-		
-		if (lastName == null || lastName.length()>10) {
-			return false;
-		}
-		
-		if (phoneNumber == null || phoneNumber.length()>10) {
-			return false;
-		}
-		
-		if (address == null || address.length()>10) {
-			return false;
-		}
+	}
 
-		return true;
+	public void updateContact(String uniqueId, String firstname, String lastname, String phonenumber, String address) throws InvalidAttributesException {
+		for (Contact contact : this.contactList) {
+			if (uniqueId.equals(contact.GetContactId())) {
+				contact.updateAll(firstname, lastname, phonenumber, address);
+			}
+		}
 	}
 
 	public List<Contact> GetContactList() {
-		return contactList;
+		return this.contactList;
 	}
 
 	public void SetContactList(List<Contact> contactList) {
 		this.contactList = contactList;
 	}
 
-	public static void deleteContact(String uniqueId) {
-		for (int i = 0; i < contactList.size(); i++) {
-			if (uniqueId.compareTo(contactList.get(i).getId()) == 0) {
-				int position = i;
-				contactList.remove(position);
-			}
-		}
-	}
+
 
 
 }

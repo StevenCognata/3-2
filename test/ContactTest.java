@@ -1,26 +1,43 @@
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Before;
+import org.junit.Test;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import javax.naming.directory.InvalidAttributesException;
 
-class ContactTest {
+import static org.junit.Assert.*;
+
+public class ContactTest {
+
+    private String firstName = null;
+    private String lastName = null;
+    private String phoneNumber = null;
+    private String address = null;
+
+    @Before
+    public void setUp() {
+        firstName = "Steven";
+        lastName = "Cognata";
+        phoneNumber = "9085551270";
+        address = "StreetName";
+    }
 
 	@Test
-	void testContact() {
-		Contact contact = new Contact("322", "Steven", "Cognata", "9085553456");
+	public void testContact() throws InvalidAttributesException {
+		Contact contact = new Contact(firstName, lastName, phoneNumber, address);
 		assertTrue(contact.GetFirstName().equals("Steven"));
-		assertTrue(contact.GetContactId().equals("322"));
 		assertTrue(contact.GetLastName().equals("Cognata"));
 		assertTrue(contact.GetPhoneNumber().equals("9085553456"));
 		assertTrue(contact.GetAddress().equals("Hogrefe"));
-		
+
 	}
-	
+
 	@Test
-	void testContactName() {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new Contact("322", "Steven", "Cognata", "9085553456");
-		});
+	public void testValidateName() throws InvalidAttributesException {
+        firstName = "InvalidFirstnameLength";
+		try {
+            Contact contact = new Contact(firstName, lastName, phoneNumber, address);
+        } catch (InvalidAttributesException e) {
+		    assertEquals(e.getMessage(), "Invalid Arguments");
+        }
 	}
 	
 	
